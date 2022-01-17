@@ -30,8 +30,11 @@ public class CenterFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_center_selection, null);
         listView = view.findViewById(R.id.listCenter);
 
+        /*
         CenterAdapter centerAdapter = new CenterAdapter(getActivity(), centerlist, this);
         listView.setAdapter(centerAdapter);
+
+*/
 
         return view;
     }
