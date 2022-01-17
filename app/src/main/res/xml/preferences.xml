@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <PreferenceCategory
+        app:title="@string/settings4">
+
+        <Preference
+            app:key="email"
+            app:title="Email"
+            app:summary="@string/settings1"
+            />
+
+        <EditTextPreference
+            app:key="userName"
+            app:title="@string/userName"
+            app:summary="@string/settings2" />
+
+        <EditTextPreference
+            app:key="password"
+            app:title="@string/pass"
+            app:summary="@string/settings3"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        app:title="@string/settings5">
+
+        <SwitchPreference
+            app:key="nightMode"
+            app:title="@string/settings6"
+            app:summary="@string/settings7"
+            app:defaultValue="true"/>
+
+    </PreferenceCategory>
+</PreferenceScreen>

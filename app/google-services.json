@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "737359246541",
+    "project_id": "booking-trick",
+    "storage_bucket": "booking-trick.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:737359246541:android:db744fab155577e8b9a584",
+        "android_client_info": {
+          "package_name": "com.example.bookingtrick"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "737359246541-0u2sftg38nicrst5108m68dfl9jupukv.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIQjPQ_U9b8DAvWsmLm4k1KUx2f-2ibow"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "737359246541-0u2sftg38nicrst5108m68dfl9jupukv.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
