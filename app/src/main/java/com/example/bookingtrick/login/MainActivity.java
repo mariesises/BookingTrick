@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
                                 reference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        Intent i = new Intent(getApplicationContext(), CenterFragment.class);
+                                        Intent i = new Intent(getApplicationContext(), MenuActivity.class);
                                         User u = snapshot.getChildren().iterator().next().getValue(User.class);
                                         if (u.getObjectID().isEmpty()) {
                                             u.setObjectID(snapshot.getKey());
