@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private EditText email, pass;
     Button buttonRegister, buttonLogin;
     private DatabaseReference reference;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mDatabaseReference;
 
 
     @Override
@@ -40,27 +42,29 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
         //Las preferencias para mantener la sesion iniciada en al inciar la aplicacion de nuevo en caso de que no se haya cerrado
         SharedPreferences sharedPreferences = getSharedPreferences("Session", MODE_PRIVATE);
         Session.setSharedPreferences(sharedPreferences);
 
+        //Si ha iniciado sesion se le redirige al menu principal
         if (sharedPreferences.getString("User", null) != null) {
             Intent i = new Intent(this, MenuActivity.class);
             startActivity(i);
             finish();
         }
 
+        //Variables en la vista
         email = findViewById(R.id.loginEmail);
         pass = findViewById(R.id.loginPassword);
 
         buttonLogin = findViewById(R.id.buttonLogin);
         buttonRegister = findViewById(R.id.buttonRegister);
 
+        //Autentificacion de Firebase
         auth = FirebaseAuth.getInstance();
 
+        //Botones para loguearse y registrarse
         buttonLogin.setOnClickListener(view -> login());
-
         buttonRegister.setOnClickListener(
                 view -> {
                     Intent i = new Intent(this, RegisterActivity.class);
@@ -86,44 +90,48 @@ public class MainActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.login2,
                     Toast.LENGTH_SHORT).show();
         } else {
-            auth.signInWithEmailAndPassword(email, pass)
-                    .addOnCompleteListener(this, task -> {
-                        if (!task.isSuccessful()) {
-                            Toast.makeText(this, R.string.login3,
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            FirebaseUser user = Objects.requireNonNull(task.getResult()).getUser();
-                            if (Objects.requireNonNull(user).isEmailVerified()) {
-                                reference = FirebaseDatabase.getInstance().getReference().child("Users/" + user.getUid());
-                                reference.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        Intent i = new Intent(getApplicationContext(), MenuActivity.class);
-                                        User u = snapshot.getChildren().iterator().next().getValue(User.class);
-                                        if (u.getObjectID().isEmpty()) {
-                                            u.setObjectID(snapshot.getKey());
-                                            FirebaseDatabase.getInstance().getReference().child("Users/" + user.getUid() + "/" + snapshot.getChildren().iterator().next().getKey())
-                                                    .child("objectID").setValue(snapshot.getChildren().iterator().next().getKey());
-                                        }
-                                        Session.setUser(u);
-                                        startActivity(i);
-                                        finish();
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-                                    }
-                                });
-                            } else {
-                                Toast.makeText(this, R.string.login4,
-                                        Toast.LENGTH_SHORT).show();
+            auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener(this, task -> {
+                if (!task.isSuccessful()) {
+                    Toast.makeText(this, R.string.login3,
+                            Toast.LENGTH_SHORT).show();
+                } else {
+                    FirebaseUser user = Objects.requireNonNull(task.getResult()).getUser();
+                    if (Objects.requireNonNull(user).isEmailVerified()) {
+                        reference = FirebaseDatabase.getInstance().getReference().child("Users/" + user.getUid());
+                        reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                Intent i = new Intent(getApplicationContext(), MenuActivity.class);
+                                User u = snapshot.getChildren().iterator().next().getValue(User.class);
+                                if (u.getObjectID().isEmpty()) {
+                                    u.setObjectID(snapshot.getKey());
+                                    FirebaseDatabase.getInstance().getReference().child("Users/" + user.getUid() + "/" + snapshot.getChildren().iterator().next().getKey())
+                                            .child("objectID").setValue(snapshot.getChildren().iterator().next().getKey());
+                                }
+                                Session.setUser(u);
+                                startActivity(i);
+                                finish();
                             }
 
-                        }
-                    });
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    } else {
+                        Toast.makeText(this, R.string.login4,
+                                Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
         }
     }
 
+    /**
+     * Metodo para validar el email, te llega un mensaje simple para aceptar y poder acceder a la aplicacion
+     * @param email
+     * @return
+     */
     private boolean validarEmail(String email) {
         Pattern pattern = Patterns.EMAIL_ADDRESS;
         return pattern.matcher(email).matches();

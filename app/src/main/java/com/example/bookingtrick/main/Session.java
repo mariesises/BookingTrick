@@ -4,18 +4,22 @@ package com.example.bookingtrick.main;
 import android.annotation.SuppressLint;
 import android.content.SharedPreferences;
 
+import com.example.bookingtrick.model.Booking;
 import com.example.bookingtrick.model.Center;
 import com.example.bookingtrick.model.User;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-
+/**
+ * Clase para guardar los datos en el usuario segun preferencias
+ */
 @SuppressLint("StaticFieldLeak")
 public class Session {
     private static SharedPreferences sharedPreferences;
     private static User user;
     private static ArrayList<Center> centerList;
+    private static ArrayList<Booking> mybookings;
 
     public Session() {
     }
@@ -43,26 +47,20 @@ public class Session {
         editor.clear().apply();
     }
 
-
     public static void setCenters(ArrayList<Center> centerList) {
         Session.centerList = centerList;
     }
-
     public static ArrayList<Center> getCenterList() {
         return centerList;
     }
 
-    public static void addCenterToList(Center center) {
-        centerList.add(center);
+    public static void setBookings(ArrayList<Booking> mybookings) {
+        Session.mybookings = mybookings;
+    }
+    public static ArrayList<Booking> getBookingList() {
+        return mybookings;
     }
 
-    public static void removeCenterFromList(Center center) {
-        centerList.remove(center);
-    }
-
-    public static void clearGymList() {
-        centerList.clear();
-    }
 
     public static void setUser(User value) {
         Session.user = value;

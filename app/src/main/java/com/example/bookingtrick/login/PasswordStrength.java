@@ -3,6 +3,9 @@ import android.graphics.Color;
 
 import com.example.bookingtrick.R;
 
+/**
+ * Codigo para la dureza de la contraseña
+ */
 public enum PasswordStrength {
 
     WEAK(R.string.password_strength_weak, Color.RED),
@@ -34,6 +37,11 @@ public enum PasswordStrength {
         return color;
     }
 
+    /**
+     * Calcula depende de que caracteres se hace mas fuerte la contraseña
+     * @param password
+     * @return
+     */
     public static PasswordStrength calculateStrength(String password) {
         int currentScore = 0;
         boolean sawUpper = false;
@@ -82,6 +90,7 @@ public enum PasswordStrength {
             currentScore = 0;
         }
 
+        //Cambia el tipo dependiendo de la dureza de la contraseña
         switch (currentScore) {
             case 0:
                 return WEAK;

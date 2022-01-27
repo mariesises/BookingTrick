@@ -10,8 +10,8 @@
             />
 
         <EditTextPreference
-            app:key="userName"
-            app:title="@string/userName"
+            app:key="name"
+            app:title="@string/name"
             app:summary="@string/settings2" />
 
         <EditTextPreference

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Booking Trick</string>
 
+    <string name="booking">Booking</string>
+    <string name="center">Center</string>
 
     <string name="login1">Email o Contraseña Vacíos</string>
     <string name="login2">Email en Formato Incorrecto</string>
@@ -22,8 +24,7 @@
     <string name="no">NO</string>
 
 
-
-    <string name="userName">Nombre de Usuario</string>
+    <string name="name">Nombre de Usuario</string>
     <string name="pass">Contraseña</string>
     <string name="settings1">Email del usuario</string>
     <string name="settings2">Toca para cambiar el nombre</string>
@@ -32,4 +33,9 @@
     <string name="settings5">Ajustes de Aplicación</string>
     <string name="settings6">Modo Oscuro/Claro</string>
     <string name="settings7">Cambiar modo oscuro/claro</string>
+
+    <string name="savedatereserve">Save date</string>
+    <string name="selectdate">SELECT A DATE</string>
+    <string name="selecthour">SELECT AN HOUR</string>
+    <string name="savehour">Save hour</string>
 </resources>
